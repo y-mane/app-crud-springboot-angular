@@ -1,0 +1,11 @@
+
+table {
+  counter-reset: ligne;
+}
+tr{
+  counter-increment: ligne;
+}
+#count:before {
+  content: counter(ligne);
+
+}

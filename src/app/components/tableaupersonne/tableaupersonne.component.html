@@ -1,0 +1,62 @@
+<div class="container" style="">
+  <div class="container" style="display: flex;justify-content: center;flex-direction: column;margin-bottom: 1.5%;">
+    <h3 style="text-decoration: underline;font-size: 2.4em;text-align: center;">{{title}}</h3>
+    <span style="display: flex;align-items: center;position: relative">
+      <span style="font-size: 1.5em;font-weight: bold; margin-right: 1.5%;">Ajouter</span>
+      <app-form-personne></app-form-personne>
+    </span>
+  </div>
+
+  <div class="card" style="height:550px;">
+      <p-table #myTable [value]="personnes" [tableStyle]="{ 'min-width': '40rem' }" selectionMode="multiple" [scrollable]="true" scrollHeight="500px">
+          <ng-template pTemplate="header">
+              <tr>
+                  <th pSortableColumn="">N°</th>
+                  <th pSortableColumn="nom">Nom<p-sortIcon field="nom"></p-sortIcon></th>
+                  <th pSortableColumn="prenom">Prénom<p-sortIcon field="prenom"></p-sortIcon></th>
+                  <th pSortableColumn="age" name="age">
+                    Age
+                    <p-sortIcon field="age"></p-sortIcon>
+                  </th>
+                  <th pSortableColumn="departement">Département<p-sortIcon field="departement"></p-sortIcon></th>
+                  <th pSortableColumn="actions">Actions</th>
+              </tr>
+            <tr>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td>
+                <p-dropdown
+                  [options]="ageOptions"
+                  [(ngModel)]="selectedOption"
+                  optionLabel="" [showClear]="true"
+                  placeholder="Catégorie"
+                  (onChange)="filterOption()"
+                  [style]="{width:'38%', margin: '1%'}"
+                  field="designation"
+                >
+                </p-dropdown>
+              </td>
+              <td></td>
+              <td></td>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-personne let-rowIndex="rowIndex">
+              <tr>
+                  <td id="count"></td>
+                  <td>{{personne.nom}}</td>
+                  <td>{{personne.prenom}}</td>
+                  <td name="age">{{personne.age}}</td>
+                  <td>{{personne.departement.designation}}</td>
+                  <td class="" style="display: flex;" >
+                    <app-form-personne [personne]="personne" style="margin-right: 5px;"></app-form-personne>
+                      <p-button (click)="confirm2(personne.id)" icon="pi pi-trash" label="" styleClass="p-button-danger"></p-button>
+                  </td>
+              </tr>
+          </ng-template>
+      </p-table>
+  </div>
+</div>
+
+<p-toast></p-toast>
+<p-confirmDialog [style]="{width: '30vw'}" [baseZIndex]="10000"></p-confirmDialog>
