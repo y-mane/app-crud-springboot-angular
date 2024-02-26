@@ -15,7 +15,9 @@ import {Table} from "primeng/table";
     providers: [ConfirmationService, MessageService, PersonneService]
 })
 
-
+/**
+ * Composant qui gère le tableau d'affichage des personnes
+ */
 export class TableaupersonneComponent implements OnInit {
     public title = "Liste Des Personnes";
     public personnes: Personne[];
@@ -40,6 +42,11 @@ export class TableaupersonneComponent implements OnInit {
     }
 
 
+    /**
+     * Supprime la personne quand on confirme et annule l'action quand on annule
+     *
+     * @param id l'id de la personne à supprimer
+     */
     confirm2(id: Number) {
         this.confirmationService.confirm({
             message: 'Voulez vous supprimer cette personne?',
@@ -60,17 +67,26 @@ export class TableaupersonneComponent implements OnInit {
         });
     }
 
+    /**
+     * Charge la liste des personnes à l'initialisation et détecte les changements
+     */
     ngOnInit(): void {
         this.getPersonnes();
         this.cdRef.detectChanges();
     }
 
+    /**
+     * Recupère la liste des personnes
+     */
     getPersonnes() {
         return this.personneService.getPersonnes().subscribe({
             next: (data) => this.personnes = data
         });
     }
 
+    /**
+     * Filtre les personnes par age
+     */
     filterOption() {
         this.selectedOption === "Mineur" ?
             this.myTable.filter(18, 'age', FilterMatchMode.LESS_THAN)

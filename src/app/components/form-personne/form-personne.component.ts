@@ -20,6 +20,9 @@ interface AutoCompleteCompleteEvent {
     styleUrls: ['./form-personne.component.css'],
     providers: [MessageService, ReactiveFormsModule, FormsModule, ConfirmationService],
 })
+/**
+ * Composant du formulaire de personne
+ */
 export class FormPersonneComponent implements OnInit {
     public departements: Departement[];
     visible: boolean = false;
@@ -39,6 +42,10 @@ export class FormPersonneComponent implements OnInit {
     ) {
     }
 
+    /**
+     * Initialise la page avec le formulaire vide,
+     * la liste des départements et détecte les changements
+     */
     ngOnInit(): void {
         this.personneForm = this.fb.group({
             id: [],
@@ -56,18 +63,30 @@ export class FormPersonneComponent implements OnInit {
         return this.personneForm.controls['nom'];
     }
 
+    /**
+     * Recupére le prenom
+     */
     get prenom() {
         return this.personneForm.controls['prenom'];
     }
 
+    /**
+     * Recupère l'age
+     */
     get age() {
         return this.personneForm.controls['age'];
     }
 
+    /**
+     * Recupère le département
+     */
     get departement() {
         return this.personneForm.controls['departement'];
     }
 
+    /**
+     * Recupère la personne selectionnée quand on choisit une action
+     */
     public getSelectedPersonne() {
         if (this.personne) {
             this.type_form = "Formulaire de modification";
@@ -78,6 +97,10 @@ export class FormPersonneComponent implements OnInit {
         }
     }
 
+    /**
+     * Affiche les infos de la personne selectionée dans le formulaire
+     * @param personne la personne dont on veut modifier les infos
+     */
     public afficherPersonne(personne: Personne) {
         this.personne = personne;
         this.personneForm.patchValue({
@@ -90,6 +113,10 @@ export class FormPersonneComponent implements OnInit {
         });
     }
 
+    /**
+     * Enregistre les modifications dans le formulaire
+     * dans le cas de l'ajout ou la modification
+     */
     public enregistrer(): void {
         if (this.personneForm.valid && this.personne.id != null) {
             this.personnesService.modifierPersonne(this.personneForm.value, this.personne.id).subscribe({
@@ -109,21 +136,34 @@ export class FormPersonneComponent implements OnInit {
         this.visible = false;
     }
 
+    /**
+     * Rénitialise le formulaire après enregistrement
+     */
     public enregistrementTerminer(): void {
         this.personneForm.reset();
         this.router.navigate(['/personne'])
     }
 
+    /**
+     * ferme le popup du formulaire
+     */
     fermer() {
         this.visible = false;
     }
 
+    /**
+     * Ouvre le popup du formulaire et appelle
+     * la fonction getSelectedPersonne()
+     */
     showDialog() {
         this.visible = true;
         this.getSelectedPersonne();
     }
 
 
+    /**
+     * Ramène tous les départements
+     */
     getDepartement() {
         return this.departementService.getDepartement().subscribe({
             next: (data) => this.departements = data
@@ -132,6 +172,11 @@ export class FormPersonneComponent implements OnInit {
 
     filteredDepartments: Departement[] | undefined;
 
+    /**
+     * Filtre les départements par caractère de désignation entré au clavier
+     *
+     * @param event l'évènement qui prend les modifications du clavier
+     */
     filterDepartement(event: AutoCompleteCompleteEvent) {
         let filtered: any[] = [];
         let query = event.query;
