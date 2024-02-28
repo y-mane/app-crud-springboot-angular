@@ -1,5 +1,6 @@
 package com.tp_eburtis.tps.controller;
 
+import com.tp_eburtis.tps.model.Departement;
 import jakarta.persistence.*;
 
 @Entity
@@ -9,6 +10,11 @@ public class DepartementDTO {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String code;
+
+    public Long getId() {
+        return id;
+    }
+
     private String designation;
 
     /**
@@ -54,6 +60,11 @@ public class DepartementDTO {
 
     public DepartementDTO() {
         super();
+    }
+    public DepartementDTO(Departement departement){
+        this.id = departement.getId();
+        this.code = departement.getCode();
+        this.designation = departement.getDesignation();
     }
 
 }

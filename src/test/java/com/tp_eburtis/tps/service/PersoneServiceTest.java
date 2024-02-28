@@ -193,7 +193,7 @@ class PersoneServiceTest {
     private DepartementRepository departementRepository;
 
     @BeforeEach
-    public void setUp(){
+    public void setUp() {
         MockitoAnnotations.openMocks(this);
     }
 
@@ -205,10 +205,10 @@ class PersoneServiceTest {
         //Given
         Long id1 = 1L;
         Long id2 = 2L;
-        Departement departement1 = new Departement("0000F","Scolaire");
-        Departement departement2 = new Departement("1000F","Juridique");
-        Personne personne1 = new Personne(id1,"Irie","Konan",25,departement1);
-        Personne personne2 = new Personne(id2,"Irie2","Konan2",25,departement2);
+        Departement departement1 = new Departement("0000F", "Scolaire");
+        Departement departement2 = new Departement("1000F", "Juridique");
+        Personne personne1 = new Personne(id1, "Irie", "Konan", 25, departement1);
+        Personne personne2 = new Personne(id2, "Irie2", "Konan2", 25, departement2);
 
         List<Personne> listePersonnes = new ArrayList<>();
         listePersonnes.add(personne1);
@@ -219,8 +219,8 @@ class PersoneServiceTest {
         List<PersonneDTO> personnesObetenues = personneService.listerPersonnes();
 
         //Then
-        assertEquals("Irie",personnesObetenues.get(0).getNom());
-        assertEquals("Irie2",personnesObetenues.get(1).getNom());
+        assertEquals("Irie", personnesObetenues.get(0).getNom());
+        assertEquals("Irie2", personnesObetenues.get(1).getNom());
         //assertEquals(listePersonnesDTO,personnesObetenues);
     }
 
@@ -231,22 +231,23 @@ class PersoneServiceTest {
     void rechercherPersonneTest() {
         //Given
         Long id = 1L;
-        Departement departement = new Departement("0000F","Scolaire1");
+        Departement departement = new Departement("0000F", "Scolaire1");
         Personne personne = new Personne(
-                id,"Irie","Konan",25,departement
+                id, "Irie", "Konan", 25, departement
         );
         when(personneRepository.findById(id)).thenReturn(Optional.of(personne));
 
         //When
-        List<Personne> personneObtenue =  personneService.rechercherPersonne(id);
+        List<Personne> personneObtenue = personneService.rechercherPersonne(id);
 
         //Then
-        assertEquals(personne.getNom(),personneObtenue.get(0).getNom());
+        assertEquals(personne.getNom(), personneObtenue.get(0).getNom());
         assertEquals(personne, personneObtenue.get(0));
     }
 
     /**
      * Test la fonction supprimerPersonne() du service
+     *
      * @throws ParseException
      */
     @Test
@@ -269,8 +270,8 @@ class PersoneServiceTest {
     void ajouterPersonneTest() {
         //Given
         Long id = 1L;
-        Departement departement = new Departement(id,"7000F","Scolaire");
-        Personne personne = new Personne("Irie","Konan",25,departement);
+        Departement departement = new Departement(id, "7000F", "Scolaire");
+        Personne personne = new Personne("Irie", "Konan", 25, departement);
         PersonneDTO personneDTO = new PersonneDTO(personne);
         when(personneRepository.save(any(Personne.class))).thenReturn(personne);
 
@@ -278,10 +279,10 @@ class PersoneServiceTest {
         Personne nouvellePersonne = personneService.ajouterPersonne(personneDTO);
 
         //Then
-        assertEquals(personne.getNom(),nouvellePersonne.getNom());
-        assertEquals(personne.getPrenom(),nouvellePersonne.getPrenom());
-        assertEquals(personne.getAge(),nouvellePersonne.getAge());
-        assertEquals(personne.getDepartement(),nouvellePersonne.getDepartement());
+        assertEquals(personne.getNom(), nouvellePersonne.getNom());
+        assertEquals(personne.getPrenom(), nouvellePersonne.getPrenom());
+        assertEquals(personne.getAge(), nouvellePersonne.getAge());
+        assertEquals(personne.getDepartement(), nouvellePersonne.getDepartement());
     }
 
     /**
@@ -291,19 +292,19 @@ class PersoneServiceTest {
     void modifierPersonneTest() {
         //Given
         Long id = 1L;
-        Departement departement = new Departement(id,"7000F","Scolaire");
-        Personne personneAModifier = new Personne(id,"Keita","Souleymane",23,departement);
+        Departement departement = new Departement(id, "7000F", "Scolaire");
+        Personne personneAModifier = new Personne(id, "Keita", "Souleymane", 23, departement);
 
         PersonneDTO personneModifieeDTO = new PersonneDTO(personneAModifier);
         when(personneRepository.findById(id)).thenReturn(Optional.of(personneAModifier));
         when(personneRepository.save(personneAModifier)).thenReturn(personneAModifier);
 
         //When
-        Personne personneModifee = personneService.modifierPersonne(id,personneModifieeDTO);
+        Personne personneModifee = personneService.modifierPersonne(id, personneModifieeDTO);
 
         //Then
-        assertEquals("Keita",personneModifee.getNom());
-        assertEquals(23,personneModifee.getAge());
+        assertEquals("Keita", personneModifee.getNom());
+        assertEquals(23, personneModifee.getAge());
 
         verify(personneRepository, times(1)).findById(id);
         verify(personneRepository, times(1)).save(personneAModifier);

@@ -1,5 +1,6 @@
 package com.tp_eburtis.tps.service;
 
+import com.tp_eburtis.tps.controller.DepartementDTO;
 import com.tp_eburtis.tps.model.Departement;
 import com.tp_eburtis.tps.repository.DepartementRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -49,7 +50,7 @@ class DepartementServiceTest {
         when(departementRepository.findAll()).thenReturn(listeDepartements);
 
         //When
-        List<Departement> departementsObtenus = departementService.listerDepartement();
+        List<DepartementDTO> departementsObtenus = departementService.listerDepartement();
 
         //Then
         assertEquals(departement1, listeDepartements.get(0));

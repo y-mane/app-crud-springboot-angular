@@ -24,7 +24,7 @@ public class PersonneController {
      * @return
      */
     @GetMapping("/personnes")
-    public List<PersonneDTO> listePersonnes() {
+    public List<PersonneDTO> listerPersonnes() {
         return personneService.listerPersonnes();
     }
 
@@ -35,7 +35,7 @@ public class PersonneController {
      * @return un liste contenant la personne recherchée
      */
     @GetMapping("/personne/{id}")
-    public List<Personne> unePersonne(@PathVariable Long id) {
+    public List<Personne> rechercherPersonne(@PathVariable Long id) {
         return personneService.rechercherPersonne(id);
     }
 

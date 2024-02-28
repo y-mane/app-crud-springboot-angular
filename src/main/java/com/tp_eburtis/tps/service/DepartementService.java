@@ -1,13 +1,14 @@
 package com.tp_eburtis.tps.service;
 
+import com.tp_eburtis.tps.controller.DepartementDTO;
 import com.tp_eburtis.tps.model.Departement;
 import com.tp_eburtis.tps.repository.DepartementRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class DepartementService {
@@ -24,10 +25,13 @@ public class DepartementService {
      *
      * @return la liste contenant tous les départements
      */
-    public List<Departement> listerDepartement() {
-        List<Departement> departements = new ArrayList<>();
-        departements.addAll(departementRepository.findAll());
-        return departements;
+    public List<DepartementDTO> listerDepartement() {
+
+        //return new ArrayList<>(departementRepository.findAll());
+        return departementRepository.findAll()
+                .stream()
+                .map(DepartementDTO::new)
+                .collect(Collectors.toList());
     }
 
     /**

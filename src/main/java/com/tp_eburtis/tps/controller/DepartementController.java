@@ -23,7 +23,7 @@ public class DepartementController {
      * @return la liste des départements
      */
     @GetMapping("/departements")
-    public List<Departement> listeDepartement() {
+    public List<DepartementDTO> listeDepartement() {
         return departementService.listerDepartement();
     }
 

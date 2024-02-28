@@ -71,4 +71,7 @@ public class PersonneDTO {
         return age;
     }
 
+    public PersonneDTO() {
+        super();
+    }
 }
